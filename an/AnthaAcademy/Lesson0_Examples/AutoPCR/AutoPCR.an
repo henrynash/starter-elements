@@ -121,7 +121,7 @@ Steps {
 	          Templatevolume: DefaultTemplateVol,
 	          PolymeraseVolume: DefaultPolymeraseVolume,
 	          DNTPVol:DefaultDNTPVol,
-	          Numberofcycles: 30 ,
+	          Numberofcycles: 1,
 	          InitDenaturationtime: wunit.NewTime(30,"s"),
 	          Denaturationtime: wunit.NewTime(5,"s"),
 	          Annealingtime: wunit.NewTime(10,"s"),

@@ -98,7 +98,7 @@ func _AutoPCR_demoSteps(_ctx context.Context, _input *AutoPCR_demoInput, _output
 			Templatevolume:        _input.DefaultTemplateVol,
 			PolymeraseVolume:      _input.DefaultPolymeraseVolume,
 			DNTPVol:               _input.DefaultDNTPVol,
-			Numberofcycles:        30,
+			Numberofcycles:        1,
 			InitDenaturationtime:  wunit.NewTime(30, "s"),
 			Denaturationtime:      wunit.NewTime(5, "s"),
 			Annealingtime:         wunit.NewTime(10, "s"),

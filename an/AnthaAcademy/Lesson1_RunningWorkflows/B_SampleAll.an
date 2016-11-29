@@ -1,41 +1,35 @@
-protocol Aliquot
+// example protocol demonstrating the use of the SampleAll function
+protocol SampleAll
 
 import (
 	"github.com/antha-lang/antha/antha/anthalib/wtype"
-	"github.com/antha-lang/antha/antha/anthalib/wutil"
 	"github.com/antha-lang/antha/antha/anthalib/mixer"
+	
 )
 
 
 // Input parameters for this protocol (data)
 Parameters (
-	SolutionVolume Volume
-	VolumePerAliquot  Volume
-	NumberofAliquots int
-	OutPlatetype string
+	Sampleall bool	// the bool type is a "boolean": which essentially means true or false
 )
 
 // Data which is returned from this protocol, and data types
 Data (
-	
+	Status string
 )
 
 
 // Physical Inputs to this protocol with types
 Inputs (
-	OutPlate *wtype.LHPlate
 	Solution *wtype.LHComponent
-	
 )
 
 // Physical outputs from this protocol with types
 Outputs (
-	Aliquots []*wtype.LHComponent
+	Sample *wtype.LHComponent
 )
 
 Requirements {
-	
-	
 	
 }
 
@@ -48,28 +42,19 @@ Setup {
 // for every input
 Steps {
 	
+	Status = "Not sampled anything"
 	
-	// check there's enough liquid for the aliquots
-	number := SolutionVolume.SIValue()/VolumePerAliquot.SIValue()
-	possiblenumberofAliquots, _ := wutil.RoundDown(number)
-	if possiblenumberofAliquots < NumberofAliquots {
-		panic("Not enough solution for this many aliquots")
+	// the SampleAll function samples the entire contents of the LHComponent
+	// so there's no need to specify the volume
+	// this if statement specifies that the SampleAll action will only be performed if SampleAll is set to true
+	if Sampleall == true {
+	Sample = mixer.SampleAll(Solution)
+	Status = "Sampled everything"
 	}
-	
-	
-	
-	aliquots := make([]*wtype.LHComponent,0)
-	
-	
-	for i := 0; i < NumberofAliquots; i++ {
-		if Solution.TypeName() == "dna"{
-		Solution.Type = wtype.LTDoNotMix
-		}
-		aliquotSample := mixer.Sample(Solution, VolumePerAliquot)
-		aliquot := MixTo(OutPlatetype, "",1, aliquotSample)
-		aliquots = append(aliquots,aliquot)
-	}
-	Aliquots = aliquots
+
+	// now move on to C_SampleForTotalVolume.an
+	 
+		
 }
 // Run after controls and a steps block are completed to
 // post process any data and provide downstream results
